@@ -114,6 +114,12 @@ return (
                 </button>
             </form>
 
+            <p className="text-center text-xs sm:text-sm mt-4">
+                <Link to="/forgot-password" className="text-[#8c431d] hover:underline font-semibold">
+                    Forgot your password?
+                </Link>
+            </p>
+
             <p className="text-center text-gray-700 text-xs sm:text-sm mt-5 font-medium">
                 New here?{' '}
                 <Link to="/signup" className="text-[#8c431d] hover:underline font-bold ml-1">

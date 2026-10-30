@@ -65,10 +65,10 @@ export const getRoleRedirectPath = (
             return '/moderator/dashboard';
 
         case 'admin':
-            return '/admin/dashboard';
-
         case 'super_admin':
-            return '/super-admin/dashboard';
+        case 'finance':
+        case 'support':
+            return '/admin/dashboard';
 
         default:
             return '/';

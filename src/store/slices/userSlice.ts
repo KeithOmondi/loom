@@ -10,7 +10,7 @@ export interface User {
     id: string;
     email: string;
     full_name: string;
-    role: 'customer' | 'seller' | 'moderator' | 'admin' | 'super_admin';
+    role: 'customer' | 'seller' | 'moderator' | 'admin' | 'super_admin' | 'support' | 'finance';
     phone?: string | null;
     is_active: boolean;
     avatar_url?: string | null;

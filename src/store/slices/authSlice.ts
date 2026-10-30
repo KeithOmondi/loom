@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import api, { setAccessToken } from '../../api/api';
 
 // ✅ Added 'moderator' role
-export type UserRole = 'customer' | 'seller' | 'moderator' | 'admin' | 'super_admin';
+export type UserRole = 'customer' | 'seller' | 'moderator' | 'admin' | 'super_admin' | 'support' | 'finance';
 export type StoreStatus = 'pending_approval' | 'inactive' | 'active';
 export type VerificationStatus = 'pending' | 'verified' | 'rejected';
 export type BusinessType = 'sole_proprietorship' | 'llc' | 'corporation' | 'partnership';

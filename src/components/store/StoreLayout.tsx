@@ -4,6 +4,7 @@ import { Search, ShoppingCart, User, ChevronDown, LogOut } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logoutThunk } from '../../store/slices/authSlice';
 import { useGetCategoryTreeQuery } from '../../api/categoryApi';
+import { useFetch } from '../../lib/http';
 import { useGetCartQuery, useMergeCartMutation } from '../../api/cartApi';
 import { clearGuestCartToken, getGuestCartToken } from '../../lib/guestCart';
 import { getRoleRedirectPath } from '../../utils/roleRedirect';
@@ -18,6 +19,8 @@ const StoreHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: cart } = useGetCartQuery();
+  const notifs = useFetch<{ unread: number }>(isAuthenticated ? '/notifications' : null);
+  const unread = notifs.data?.unread ?? 0;
   const { data: tree } = useGetCategoryTreeQuery({ depth_max: 1, include_product_count: false });
   const departments = tree?.data ?? [];
 
@@ -40,7 +43,7 @@ const StoreHeader = () => {
       <div className="bg-warm-gray-900 text-xs text-warm-gray-200">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1.5">
           <span>Pay securely with M-Pesa</span>
-          <Link to="/register" className="hover:text-white">
+          <Link to="/sell-on-loom" className="hover:text-white">
             Sell on Loom
           </Link>
         </div>
@@ -85,6 +88,13 @@ const StoreHeader = () => {
                     className="absolute right-0 mt-1 w-48 overflow-hidden rounded-lg border border-warm-gray-200 bg-white py-1 text-sm shadow-lg"
                     onMouseLeave={() => setMenuOpen(false)}
                   >
+                    {user.role === 'customer' && (
+                      <>
+                        {[['/account/orders', 'My orders'], ['/account/wishlist', 'Wishlist'], ['/account/wallet', 'Wallet'], ['/account/messages', 'Messages'], ['/account/notifications', unread ? `Notifications (${unread})` : 'Notifications'], ['/account/profile', 'Profile']].map(([to, label]) => (
+                          <Link key={to} to={to} onClick={() => setMenuOpen(false)} className="block px-4 py-2 hover:bg-warm-gray-100">{label}</Link>
+                        ))}
+                      </>
+                    )}
                     {portalPath && (
                       <Link
                         to={portalPath}
@@ -170,6 +180,10 @@ const StoreFooter = () => (
         <ul className="space-y-2 text-sm">
           <li><Link to="/shop" className="hover:text-white">All products</Link></li>
           <li><Link to="/cart" className="hover:text-white">My cart</Link></li>
+          <li><Link to="/account/orders" className="hover:text-white">My orders</Link></li>
+          <li><Link to="/help" className="hover:text-white">Help Centre</Link></li>
+          <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
+          <li><Link to="/contact" className="hover:text-white">Contact us</Link></li>
           <li><Link to="/login" className="hover:text-white">Sign in</Link></li>
         </ul>
       </div>
@@ -178,6 +192,8 @@ const StoreFooter = () => (
         <ul className="space-y-2 text-sm">
           <li><Link to="/register" className="hover:text-white">Become a seller</Link></li>
           <li><Link to="/login" className="hover:text-white">Seller sign in</Link></li>
+          <li><Link to="/sell-on-loom" className="hover:text-white">Sell on Loom</Link></li>
+          <li><Link to="/vendor-agreement" className="hover:text-white">Vendor agreement</Link></li>
         </ul>
       </div>
       <div>
@@ -185,6 +201,8 @@ const StoreFooter = () => (
         <ul className="space-y-2 text-sm">
           <li><Link to="/terms" className="hover:text-white">Terms of use</Link></li>
           <li><Link to="/privacy" className="hover:text-white">Privacy policy</Link></li>
+          <li><Link to="/returns" className="hover:text-white">Return policy</Link></li>
+          <li><Link to="/about" className="hover:text-white">About Loom</Link></li>
         </ul>
       </div>
     </div>

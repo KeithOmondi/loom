@@ -8,18 +8,13 @@ import { useGetSellerProfileStatusQuery } from '../../api/sellerApi';
 import { useGetMyStoresQuery } from '../../api/storeApi';
 import {
   LayoutDashboard,
-  BarChart3,
   Package,
   FolderKanban,
   ShoppingBag,
   RotateCcw,
   Truck,
-  Building2,
   BadgePercent,
-  Star,
   Wallet,
-  Receipt,
-  FileText,
   CreditCard,
   Store,
   ShieldCheck,
@@ -36,6 +31,7 @@ import {
   ChevronRight,
   X,
   ChevronLeft,
+  Tags,
 } from 'lucide-react';
 
 // ============================================
@@ -294,13 +290,13 @@ const FULL_NAV: NavGroup[] = [
   {
     items: [
       { to: '/dashboard', label: 'Seller Dashboard', icon: LayoutDashboard, end: true },
-      { to: '/analytics', label: 'Analytics', icon: BarChart3, phase: 2 },
     ],
   },
   {
     groupLabel: 'Products & Stock',
     items: [
       { to: '/products', label: 'Catalog', icon: Package, end: true },
+      { to: '/seller/variants', label: 'Product options', icon: Tags },
       { to: '/seller/inventory', label: 'Inventory Alerts', icon: FolderKanban },
     ],
   },
@@ -311,15 +307,12 @@ const FULL_NAV: NavGroup[] = [
       { to: '/seller/fulfillment', label: 'Shipping & Waybills', icon: Truck },
       // Returns and disputes are one workflow: build them as tabs on this page.
       { to: '/seller/returns', label: 'Returns & Disputes', icon: RotateCcw },
-      { to: '/warehouses', label: 'Pickup Hubs', icon: Building2, phase: 2 },
     ],
   },
   {
     groupLabel: 'Growth',
     items: [
-      // One "Marketing" page: coupons, flash-sale opt-ins, and ads as tabs.
-      { to: '/promotions', label: 'Marketing', icon: BadgePercent, phase: 2 },
-      { to: '/reviews', label: 'Customer Reviews', icon: Star, phase: 2 },
+      { to: '/seller/coupons', label: 'Coupons', icon: BadgePercent },
     ],
   },
   {
@@ -327,8 +320,6 @@ const FULL_NAV: NavGroup[] = [
     items: [
       { to: '/seller/payouts', label: 'Payout Settlements', icon: Wallet },
       { to: '/seller/bank-accounts', label: 'Bank & Mobile Money', icon: CreditCard },
-      { to: '/commissions', label: 'Fee Breakdown', icon: Receipt, phase: 2 },
-      { to: '/tax-invoices', label: 'Tax Invoices', icon: FileText, phase: 2 },
     ],
   },
   {
@@ -343,7 +334,7 @@ const FULL_NAV: NavGroup[] = [
     groupLabel: 'Support & Settings',
     items: [
       { to: '/seller/messages', label: 'Messages', icon: MessageSquare },
-      { to: '/notifications', label: 'Notifications', icon: Bell },
+      { to: '/seller/notifications', label: 'Notifications', icon: Bell },
       { to: '/seller/settings', label: 'Account Settings', icon: Settings },
     ],
   },
@@ -354,7 +345,7 @@ const FULL_NAV: NavGroup[] = [
 const RESTRICTED_SUPPORT_GROUP: NavGroup = {
   groupLabel: 'Support',
   items: [
-    { to: '/support', label: 'Help Center', icon: HelpCircle },
+    { to: '/help', label: 'Help Center', icon: HelpCircle },
     { to: '/seller/settings', label: 'Account Settings', icon: Settings },
   ],
 };

@@ -1,5 +1,6 @@
 // src/services/api.ts
 import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
+import { humanizeAxiosError } from '../lib/errors';
 
 // Injected by store.ts AFTER the store is created — avoids a require cycle
 // the same way the mobile app's axiosClient does (api.ts -> store -> authSlice -> api.ts).
@@ -168,5 +169,9 @@ api.interceptors.response.use(
         }
     }
 );
+
+// Registered last, so it also sees failures re-thrown by the refresh logic above.
+// Every screen then gets a plain-language message instead of 'Request failed with status code 401'.
+api.interceptors.response.use(undefined, (error: AxiosError) => Promise.reject(humanizeAxiosError(error)));
 
 export default api;

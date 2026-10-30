@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /account
+Disallow: /admin
+Disallow: /seller
+Disallow: /moderator
+Disallow: /super-admin
+Disallow: /checkout
+Disallow: /cart
+
+# Replace with your real API address after deployment:
+# Sitemap: https://api.your-domain.com/api/v1/sitemap.xml
